@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.liu.mapper.UserMapper">
+
+    <resultMap id="UserResultMap" type="com.cn.liu.entity.User">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="age" jdbcType="INTEGER" property="age"/>
+        <result column="sex" jdbcType="VARCHAR" property="sex"/>
+        <result column="card_no" jdbcType="VARCHAR" property="cardNo" javaType="java.lang.String"/>
+    </resultMap>
+
+    <insert id="insertUser" parameterType="com.cn.liu.entity.User">
+        insert into user(name,age,sex,card_no) values(#{name},#{age},#{sex},#{cardNo})
+    </insert>
+
+    <select id="selectUserById" resultType="com.cn.liu.entity.User" resultMap="UserResultMap">
+        select id,name,card_no,age,sex from user where id = #{id} and is_delete = 0
+    </select>
+    <select id="queryForList" resultType="com.cn.liu.entity.User" resultMap="UserResultMap">
+        select id,name,card_no,age,sex from user
+    </select>
+    <select id="login" resultType="com.cn.liu.entity.User" resultMap="UserResultMap" parameterType="com.cn.liu.entity.Login">
+        select id,name,card_no,age,sex from user where name = #{name} and pwd = #{pwd} and is_delete = 0
+    </select>
+
+</mapper>
