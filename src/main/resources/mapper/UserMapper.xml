@@ -26,4 +26,16 @@
         select id,name,card_no,age,sex from user where name = #{name} and pwd = #{pwd} and is_delete = 0
     </select>
 
+    <update id="deleteUser" >
+        update user set is_delete = 1 where id = #{id}
+    </update>
+
+    <update id="update" parameterType="com.cn.liu.entity.User">
+        update user set name = #{name} , age = #{age} , sex = #{sex} where id = #{id}
+    </update>
+
+    <update id="updatepwd" parameterType="java.util.Map">
+        update user set pwd = #{pwd} where id = #{id}
+    </update>
+
 </mapper>

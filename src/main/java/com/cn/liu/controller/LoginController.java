@@ -15,6 +15,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -75,7 +77,10 @@ public class LoginController {
     @PostMapping("/query/{id}")
     @ResponseBody
     public ResponseResult queryById(@PathVariable(name = "id") int id) {
-        System.out.println(userMapper.selectUserById(id));
+        User user = userMapper.selectUserById(id);
+        if(user == null){
+            throw new RuntimeException("用户不存在");
+        }
         return  ResponseResult.success("查询成功", userMapper.selectUserById(id));
 
     }
@@ -140,4 +145,38 @@ public class LoginController {
         }
         return ResponseResult.success("更新成功",user);
     }
+
+    @RequestMapping("/updatepwd")
+    @ResponseBody
+    public ResponseResult updatepwd(@RequestBody Map<String,String> newpwd){
+        int res = userMapper.updatepwd(newpwd);
+        if(!(res>0)){
+            throw new BusinessException("更新失败");
+        }
+        return ResponseResult.success("更新成功");
+    }
+
+    @GetMapping("/demo3")
+    @ResponseBody
+    public void demo3(HttpServletRequest request) {
+        System.out.println(request.getHeader("myHeader"));
+        for (Cookie cookie : request.getCookies()) {
+            if ("myCookie".equals(cookie.getName())) {
+                System.out.println(cookie.getValue());
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
