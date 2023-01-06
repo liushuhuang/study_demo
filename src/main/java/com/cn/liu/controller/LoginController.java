@@ -68,7 +68,7 @@ public class LoginController {
     @ResponseBody
     public String f(@RequestBody User u1) {
         System.out.println(u1.toString());
-        userMapper.insertUser(u1);
+        userMapper.resgity(u1);
         return JSON.toJSONString(u1);
     }
 
@@ -83,7 +83,7 @@ public class LoginController {
     @ResponseBody
     public ResponseResult newuser(@RequestBody User user) {
         System.out.println(user);
-        int res = userMapper.insertUser(user);
+        int res = userMapper.resgity(user);
 
         return ResponseResult.success("新增用户成功", res);
     }
@@ -109,5 +109,35 @@ public class LoginController {
             throw new BusinessException("用户名或密码错误");
         }
         return ResponseResult.success("登录成功",user);
+    }
+
+    @RequestMapping("/resgity")
+    @ResponseBody
+    public ResponseResult resgity(@RequestBody User user){
+        int res = userMapper.resgity(user);
+        if(!(res>0)){
+            throw new BusinessException("注册失败");
+        }
+        return ResponseResult.success("注册成功",user);
+    }
+
+    @RequestMapping("/delete/{id}")
+    @ResponseBody
+    public ResponseResult delete(@PathVariable(name = "id") int id){
+        int res = userMapper.deleteUser(id);
+        if(!(res>0)){
+            throw new BusinessException("删除失败");
+        }
+        return ResponseResult.success("删除成功");
+    }
+
+    @RequestMapping("/update")
+    @ResponseBody
+    public ResponseResult update(@RequestBody User user){
+        int res = userMapper.update(user);
+        if(!(res>0)){
+            throw new BusinessException("更新失败");
+        }
+        return ResponseResult.success("更新成功",user);
     }
 }

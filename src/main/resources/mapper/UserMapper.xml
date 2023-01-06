@@ -12,8 +12,8 @@
         <result column="card_no" jdbcType="VARCHAR" property="cardNo" javaType="java.lang.String"/>
     </resultMap>
 
-    <insert id="insertUser" parameterType="com.cn.liu.entity.User">
-        insert into user(name,age,sex,card_no) values(#{name},#{age},#{sex},#{cardNo})
+    <insert id="resgity" parameterType="com.cn.liu.entity.User">
+        insert into user(name,age,sex,card_no,pwd) values(#{name},#{age},#{sex},#{cardNo},#{pwd})
     </insert>
 
     <select id="selectUserById" resultType="com.cn.liu.entity.User" resultMap="UserResultMap">

@@ -8,14 +8,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import
 org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 @Configuration
 public class fastJsonConfig extends WebMvcConfigurationSupport {
     /**
     * 使用阿里 FastJson 作为JSON MessageConverter
-    * @param converters
+    * @param converters  参数
+     *
     */
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -35,7 +36,7 @@ public class fastJsonConfig extends WebMvcConfigurationSupport {
         // 避免循环引用
         SerializerFeature.DisableCircularReferenceDetect);
         converter.setFastJsonConfig(config);
-        converter.setDefaultCharset(Charset.forName("UTF-8"));
+        converter.setDefaultCharset(StandardCharsets.UTF_8);
         List<MediaType> mediaTypeList = new ArrayList<>();
         // 解决中文乱码问题，相当于在Controller上的@RequestMapping中加了个属性produces = "application/json"
         mediaTypeList.add(MediaType.APPLICATION_JSON);
