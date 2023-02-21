@@ -1,24 +1,39 @@
 package com.cn.liu.controller;
 
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.alibaba.fastjson.JSON;
 import com.cn.liu.Json.ResponseResult;
 import com.cn.liu.entity.Login;
 import com.cn.liu.entity.User;
 import com.cn.liu.exception.BusinessException;
 import com.cn.liu.mapper.UserMapper;
+import com.cn.liu.util.ImageCaptchaParams;
+import com.cn.liu.util.ImageCaptchaResult;
+import com.cn.liu.util.ImageCaptchaUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author liu
@@ -27,6 +42,12 @@ import java.util.Map;
 
 public class LoginController {
     public final UserMapper userMapper;
+    public final String pre1 = "dyms"+"_"+"imageCaptchaCode"+"_";
+    public final String pre2 = "dyms"+"_"+"captchaCode"+"_";
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
 
     public LoginController(UserMapper userMapper) {
         this.userMapper = userMapper;
@@ -168,9 +189,77 @@ public class LoginController {
     }
 
 
+    @GetMapping("/excel")
+    @ResponseBody
+    public void excel(HttpServletResponse response) throws IOException {
+        String path = "D:\\demo";
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet();
+        Row row = sheet.createRow(0);
+        Cell cell = row.createCell(0);
+        cell.setCellValue("ssss");
+        FileOutputStream fileOutputStream = new FileOutputStream(path + "1.xlsx");
+        workbook.write(fileOutputStream);
+
+    }
+
+    @PostMapping ("/t1")
+    @ResponseBody
+    public ResponseResult t1(@RequestBody Map<String,String> pwdmap){
+        User user= userMapper.selectUserById(Integer.parseInt(pwdmap.get("id")));
+        System.out.println(pwdmap.get("nowpwd"));
+        System.out.println(user.getPwd());
+        if(!user.getPwd().equals(pwdmap.get("nowpwd"))){
+            throw new BusinessException("当前密码不正确");
+        }
+        if(!pwdmap.get("pwd").equals(pwdmap.get("repwd"))){
+            throw new BusinessException("两次密码输入不一致");
+        }
+        userMapper.updatepwd(pwdmap);
+        return ResponseResult.success("修改密码成功");
 
 
+    }
 
+    @PostMapping ("/tt")
+    @ResponseBody
+    public void tt(@RequestBody Map<String,Object> phonemap,HttpServletResponse response) throws IOException {
+        ServletOutputStream outputStream = response.getOutputStream();
+        String captchaCode = ImageCaptchaUtil.create(new ImageCaptchaParams(),outputStream);
+        String phone = (String) phonemap.get("phone");
+        String key = pre1+phone;
+        redisTemplate.boundValueOps(key).set(captchaCode,1, TimeUnit.MINUTES);
+
+    }
+
+
+    @PostMapping("/tt1")
+    @ResponseBody
+    public String tt1(@RequestBody Map<String,Object> sent) throws IOException {
+        String phone = (String) sent.get("phone");
+        String imageCaptchaCode1 = (String) sent.get("imageCaptchaCode");
+        String key1 = pre1+phone;
+        String imageCaptchaCode = (String) redisTemplate.boundValueOps(key1).get();
+        String key2 = pre2+phone;
+        if(imageCaptchaCode.equalsIgnoreCase(imageCaptchaCode1)){
+            redisTemplate.boundValueOps(key2).set("1234",1, TimeUnit.MINUTES);
+            return "1234";
+        }
+        else throw new BusinessException();
+    }
+
+    @PostMapping("/tt2")
+    @ResponseBody
+    public String tt2(@RequestBody Map<String,Object> login) throws IOException {
+        String phone = (String) login.get("phone");
+        String captchaCode1 = (String) login.get("captchaCode");
+        String key = pre2+phone;
+        String imageCaptchaCode = (String) redisTemplate.boundValueOps(key).get();
+        if(imageCaptchaCode.equals(captchaCode1)){
+            return "sucess";
+        }
+        else throw new BusinessException();
+    }
 
 
 

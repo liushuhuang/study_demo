@@ -10,6 +10,7 @@
         <result column="age" jdbcType="INTEGER" property="age"/>
         <result column="sex" jdbcType="VARCHAR" property="sex"/>
         <result column="card_no" jdbcType="VARCHAR" property="cardNo" javaType="java.lang.String"/>
+        <result column="pwd" jdbcType="VARCHAR" property="pwd" javaType="java.lang.String"/>
     </resultMap>
 
     <insert id="resgity" parameterType="com.cn.liu.entity.User">
@@ -17,7 +18,7 @@
     </insert>
 
     <select id="selectUserById" resultType="com.cn.liu.entity.User" resultMap="UserResultMap">
-        select id,name,card_no,age,sex from user where id = #{id} and is_delete = 0
+        select id,name,card_no,age,sex,pwd from user where id = #{id} and is_delete = 0
     </select>
     <select id="queryForList" resultType="com.cn.liu.entity.User" resultMap="UserResultMap">
         select id,name,card_no,age,sex from user

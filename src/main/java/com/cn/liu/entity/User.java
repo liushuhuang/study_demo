@@ -7,6 +7,15 @@ public class User {
     public int age;
     public String sex;
     public String cardNo;
+    public String pwd;
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
 
     @Override
     public String toString() {
