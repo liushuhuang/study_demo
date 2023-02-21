@@ -9,5 +9,5 @@ public interface TestService {
     /**
      *  测试amq
      */
-    public void test1();
+    public void test1(String str);
 }

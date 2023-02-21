@@ -1,6 +1,9 @@
 package com.cn.liu.entity;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
     public int id;
 
     public String name;
@@ -45,6 +48,15 @@ public class User {
         this.id = id;
     }
 
+
+    public User(int id, String name, int age, String sex, String cardNo, String pwd) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
+        this.cardNo = cardNo;
+        this.pwd = pwd;
+    }
 
     public User() {
     }

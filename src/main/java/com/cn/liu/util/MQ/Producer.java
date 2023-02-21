@@ -1,5 +1,6 @@
 package com.cn.liu.util.MQ;
 
+import com.cn.liu.entity.User;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,7 @@ public class Producer {
 	@Resource
 	private Queue queue;
 
-	public void sendMsg(String msg) {
+	public void sendMsg(User msg) {
 		System.out.println("发送消息内容 :" + msg);
-		this.jmsMessagingTemplate.convertAndSend(this.queue, msg);
+		this.jmsMessagingTemplate.convertAndSend(this.queue,msg);
 	}}
