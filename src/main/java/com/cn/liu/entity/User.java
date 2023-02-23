@@ -1,16 +1,33 @@
 package com.cn.liu.entity;
 
+import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
+import com.alibaba.excel.annotation.ExcelProperty;
+
 import java.io.Serializable;
 
+@ExcelIgnoreUnannotated
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
+    @ExcelProperty(value = {"用户信息", "用户id"})
     public int id;
-
+    @ExcelProperty(value = {"用户信息", "用户姓名"})
     public String name;
+    @ExcelProperty(value = {"用户信息", "用户年龄"})
     public int age;
+    @ExcelProperty(value = {"用户信息", "用户性别"})
     public String sex;
+    @ExcelProperty(value = {"用户信息", "用户卡号"})
     public String cardNo;
+
     public String pwd;
+
+    public User(int id, String name, int age, String sex, String cardNo) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
+        this.cardNo = cardNo;
+    }
 
     public String getPwd() {
         return pwd;

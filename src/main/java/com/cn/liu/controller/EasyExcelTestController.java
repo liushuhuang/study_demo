@@ -1,18 +1,22 @@
 package com.cn.liu.controller;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.builder.ExcelWriterBuilder;
 import com.alibaba.excel.write.builder.ExcelWriterSheetBuilder;
+import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.style.WriteCellStyle;
 import com.alibaba.excel.write.metadata.style.WriteFont;
 import com.alibaba.excel.write.style.HorizontalCellStyleStrategy;
-import com.cn.liu.entity.Test.User;
+import com.cn.liu.entity.User;
+import com.cn.liu.mapper.UserMapper;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
@@ -24,6 +28,9 @@ import java.util.List;
 
 @RestController
 public class EasyExcelTestController {
+    @Resource
+    UserMapper userMapper;
+
     /**
      * 从request中获取json数据
      *
@@ -55,17 +62,18 @@ public class EasyExcelTestController {
     @RequestMapping(value = "/export")
     public void exportExcel(HttpServletRequest httpServletRequest, HttpServletResponse response) throws IOException {
         //获取数据
-        List<User> userList = new ArrayList<>();
-        User user1 = new User("liu1","1001",22,"m","1");
-        User user2 = new User("liu2","1002",22,"m","2");
-        User user3 = new User("liu3","1003",22,"m","3");
-        User user4 = new User("liu4","1004",22,"m","4");
-        User user5 = new User("liu5","1005",22,"m","5");
-        userList.add(user1);
-        userList.add(user2);
-        userList.add(user3);
-        userList.add(user4);
-        userList.add(user5);
+        List<User> userList = userMapper.queryForList();
+        List<User> userList2 = new ArrayList<>();
+        User user1 = new User(1,"liu1",22,"m","1");
+        User user2 = new User(2,"liu2",22,"m","2");
+        User user3 = new User(3,"liu3",22,"m","3");
+        User user4 = new User(4,"liu4",22,"m","4");
+        User user5 = new User(5,"liu5",22,"m","5");
+        userList2.add(user1);
+        userList2.add(user2);
+        userList2.add(user3);
+        userList2.add(user4);
+        userList2.add(user5);
         // 头的策略
         WriteCellStyle headWriteCellStyle = new WriteCellStyle();
         // 背景设置为灰色
@@ -105,11 +113,28 @@ public class EasyExcelTestController {
         response.setHeader("content-disposition","attachment;filename="+fileName+".xlsx");
         //3、、创建工作簿
         ExcelWriterBuilder writeWork = EasyExcel.write(response.getOutputStream(), User.class).registerWriteHandler(new HorizontalCellStyleStrategy(headWriteCellStyle, contentWriteCellStyle));
-        //4、创建表格
-        ExcelWriterSheetBuilder sheet = writeWork.sheet();
-        //5、调用业务层获取数据
-        //List<Category> categories = categoryService.findAll();
-        //6、写入数据到表格中
-        sheet.doWrite(userList);
+        ExcelWriter excelWriter = writeWork.build();
+        try {
+            WriteSheet writeSheet = new WriteSheet();
+            WriteSheet writeSheet2 = new WriteSheet();
+            writeSheet.setSheetName("target");
+            writeSheet2.setSheetName("target2");
+            excelWriter.write(userList, writeSheet);
+            excelWriter.write(userList2, writeSheet2);
+        }
+        finally {
+            excelWriter.finish();
+        }
+
+
+
+        ////4、创建表格
+        //ExcelWriterSheetBuilder sheet = writeWork.sheet("用户信息");
+        //ExcelWriterSheetBuilder sheet2 = writeWork.sheet("用户信息2");
+        ////5、调用业务层获取数据
+        ////List<Category> categories = categoryService.findAll();
+        ////6、写入数据到表格中
+        //sheet.doWrite(userList);
+        //sheet2.doWrite(userList2);
     }
 }
