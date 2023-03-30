@@ -3,6 +3,8 @@ package com.cn.liu;
 import cn.hutool.crypto.digest.DigestUtil;
 import com.alibaba.fastjson.JSON;
 import com.cn.liu.util.Sm4Util;
+import com.cn.liu.util.security.sm2.SecretKeyUtils;
+import com.cn.liu.util.security.sm4.SM2Util;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -19,8 +21,8 @@ public class securityTest {
         map.put("param4","d");
         map.put("param5","e");
         //String a = String.valueOf(Sm4Util.encrypt(JSON.toJSONString(map).getBytes()));
-
-        System.out.println(Sm4Util.generateKey());
+        SecretKeyUtils.generatePaKey();
+        //System.out.println(SecretKeyUtils.generateSm2KeyPair().getPrivate().toString());
 
 
     }

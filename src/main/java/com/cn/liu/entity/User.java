@@ -4,6 +4,9 @@ import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 
 @ExcelIgnoreUnannotated
 public class User implements Serializable {
@@ -18,6 +21,17 @@ public class User implements Serializable {
     public String sex;
     @ExcelProperty(value = {"用户信息", "用户卡号"})
     public String cardNo;
+
+    public LocalDateTime expireTime;
+
+
+    public LocalDateTime getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(LocalDateTime expireTime) {
+        this.expireTime = expireTime;
+    }
 
     public String pwd;
 

@@ -10,9 +10,11 @@ import com.alibaba.excel.write.metadata.style.WriteFont;
 import com.alibaba.excel.write.style.HorizontalCellStyleStrategy;
 import com.cn.liu.entity.User;
 import com.cn.liu.mapper.UserMapper;
+import com.cn.liu.util.easyexcel.DemoDataListener;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,6 +60,16 @@ public class EasyExcelTestController {
             }
         }
     }
+
+
+    @RequestMapping("/import")
+    public void Excelimport(){
+        String fileName = "D:\\project\\地区列表.xlsx";
+        EasyExcel.read(fileName, User.class, new DemoDataListener()).sheet().doRead();
+    }
+
+
+
 
     @RequestMapping(value = "/export")
     public void exportExcel(HttpServletRequest httpServletRequest, HttpServletResponse response) throws IOException {
@@ -137,4 +149,7 @@ public class EasyExcelTestController {
         //sheet.doWrite(userList);
         //sheet2.doWrite(userList2);
     }
+
+
+
 }
