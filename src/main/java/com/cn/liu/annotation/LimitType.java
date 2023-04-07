@@ -1,5 +1,9 @@
 package com.cn.liu.annotation;
 
+/**
+ * @author liu
+ */
+
 public enum LimitType {
     /**
      * 默认策略全局限流

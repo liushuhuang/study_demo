@@ -3,7 +3,6 @@ package com.cn.liu.controller;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.builder.ExcelWriterBuilder;
-import com.alibaba.excel.write.builder.ExcelWriterSheetBuilder;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.style.WriteCellStyle;
 import com.alibaba.excel.write.metadata.style.WriteFont;
@@ -14,7 +13,6 @@ import com.cn.liu.util.easyexcel.DemoDataListener;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,9 +23,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author liu
+ */
 @RestController
 public class EasyExcelTestController {
     @Resource
@@ -36,19 +38,18 @@ public class EasyExcelTestController {
     /**
      * 从request中获取json数据
      *
-     * @param request
-     * @return
+     * @param request http请求
+     * @return 返回
      */
     public static String getJsonRequest(HttpServletRequest request) {
         StringBuilder sb = new StringBuilder();
-        String line = null;
+        String line;
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF-8"));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
-            String string = sb.toString();
-            return string;
+            return sb.toString();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

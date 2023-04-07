@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import javax.jms.Queue;
 
 
+/**
+ * @author liu
+ */
 @Configuration
 public class ActicveMQConfig {
 	@Bean

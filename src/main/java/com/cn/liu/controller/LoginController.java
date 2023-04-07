@@ -1,7 +1,6 @@
 package com.cn.liu.controller;
 
 
-import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.alibaba.fastjson.JSON;
 import com.cn.liu.Json.ResponseResult;
 import com.cn.liu.entity.Login;
@@ -9,12 +8,9 @@ import com.cn.liu.entity.User;
 import com.cn.liu.exception.BusinessException;
 import com.cn.liu.mapper.UserMapper;
 import com.cn.liu.util.ImageCaptchaParams;
-import com.cn.liu.util.ImageCaptchaResult;
 import com.cn.liu.util.ImageCaptchaUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -245,7 +241,9 @@ public class LoginController {
             redisTemplate.boundValueOps(key2).set("1234",1, TimeUnit.MINUTES);
             return "1234";
         }
-        else throw new BusinessException();
+        else {
+            throw new BusinessException();
+        }
     }
 
     @PostMapping("/tt2")
@@ -258,7 +256,9 @@ public class LoginController {
         if(imageCaptchaCode.equals(captchaCode1)){
             return "sucess";
         }
-        else throw new BusinessException();
+        else {
+            throw new BusinessException();
+        }
     }
 
 

@@ -19,6 +19,7 @@ import java.util.Objects;
 /**
  * 限流处理
  *
+ * @author liu
  */
 @Aspect
 @Component
@@ -43,8 +44,7 @@ public class RateLimiterAspect
     }
 
     @Before("@annotation(rateLimiter)")
-    public void doBefore(JoinPoint point, RateLimiter rateLimiter) throws Throwable
-    {
+    public void doBefore(JoinPoint point, RateLimiter rateLimiter) {
         String key = rateLimiter.key();
         int time = rateLimiter.time();
         int count = rateLimiter.count();
@@ -72,7 +72,7 @@ public class RateLimiterAspect
 
     public String getCombineKey(RateLimiter rateLimiter, JoinPoint point)
     {
-        StringBuffer stringBuffer = new StringBuffer(rateLimiter.key());
+        StringBuilder stringBuffer = new StringBuilder(rateLimiter.key());
         MethodSignature signature = (MethodSignature) point.getSignature();
         Method method = signature.getMethod();
         Class<?> targetClass = method.getDeclaringClass();
