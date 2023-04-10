@@ -1,9 +1,7 @@
 package com.cn.liu.service;
 
 import com.cn.liu.Json.ResponseResult;
-import com.cn.liu.entity.TreeNode;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,6 +15,7 @@ public interface TestService {
      */
     public void test1(Map<String,Object> map);
     public void init();
-
+    public void test3(Map<String,Object> map);
+    public void test4(Map<String,Object> map);
     public ResponseResult test2();
 }

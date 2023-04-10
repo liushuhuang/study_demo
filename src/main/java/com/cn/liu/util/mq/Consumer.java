@@ -22,11 +22,24 @@ public class Consumer {
 
 	@Resource
 	RedisTemplate redisTemplate;
-	@JmsListener(destination = "sms.queue")
+	@JmsListener(destination = "sms.queue", containerFactory = "queueListenerContainerFactory")
 	public void receiveMsg(Message message) throws JMSException {
-		System.out.println("接收到消息 : "+message);
+		//System.out.println("接收到消息 : "+message);
 		User user = (User)((ObjectMessage)message).getObject();
-		userMapper.resgity(user);
-		redisTemplate.opsForSet().add("pre"+user.getCardNo(),user.getId());
+		System.out.println("queue接收信息："+user);
+	}
+
+	@JmsListener(destination = "sms.topic", containerFactory = "topicListenerContainerFactory")
+	public void receiveTopecMsg(Message message) throws JMSException {
+		//System.out.println("接收到消息 : "+message);
+		User user = (User)((ObjectMessage)message).getObject();
+		System.out.println("topic接收信息："+user);
+	}
+
+	@JmsListener(destination = "sms.topic", containerFactory = "topicListenerContainerFactory")
+	public void receiveTopecMsg1(Message message) throws JMSException {
+		//System.out.println("接收到消息 : "+message);
+		User user = (User)((ObjectMessage)message).getObject();
+		System.out.println("topic1接收信息："+user);
 	}
 }
