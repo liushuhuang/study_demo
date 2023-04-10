@@ -2,12 +2,12 @@ package com.cn.liu.config;
 
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 
+import javax.annotation.Resource;
 import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
 import javax.jms.Topic;
@@ -23,12 +23,12 @@ public class ActicveMqConfig {
 	/**
 	 * mq连接对象
 	 */
-	@Autowired
+	@Resource
 	private ConnectionFactory connectionFactory;
 	/**
 	 * 初始化队列配置
 	 *
-	 * @return
+	 * @return queue
 	 */
 	@Bean
 	public Queue queue() {
@@ -38,7 +38,7 @@ public class ActicveMqConfig {
 	/**
 	 * 初始化主题配置
 	 *
-	 * @return
+	 * @return topic
 	 */
 	@Bean
 	public Topic topic() {
@@ -48,7 +48,7 @@ public class ActicveMqConfig {
 	/**
 	 * 主题消息容器配置
 	 *
-	 * @return
+	 * @return topicListenerContainerFactory
 	 */
 	@Bean
 	public JmsListenerContainerFactory<?> topicListenerContainerFactory() {
@@ -61,7 +61,7 @@ public class ActicveMqConfig {
 	/**
 	 * 队列消息容器配置
 	 *
-	 * @return
+	 * @return queueListenerContainerFactory
 	 */
 	@Bean
 	public DefaultJmsListenerContainerFactory queueListenerContainerFactory() {

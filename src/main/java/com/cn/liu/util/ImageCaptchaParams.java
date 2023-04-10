@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * @author huangrusheng
  * @version 1.0
- * @date 2021/5/20 9:55
+ *
  */
 @Data
 public class ImageCaptchaParams {

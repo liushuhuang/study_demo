@@ -4,12 +4,17 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
+
+/**
+ * @author liu
+ */
 @Configuration
 public class FilterConfig {
 
     @Bean
-    public FilterRegistrationBean registFilter() {
-        FilterRegistrationBean registration = new FilterRegistrationBean();
+    public FilterRegistrationBean<Filter> registFilter() {
+        FilterRegistrationBean<Filter> registration = new FilterRegistrationBean<>();
         registration.setFilter(new LogCostFilter());
         registration.addUrlPatterns("/test/*");
         registration.setName("LogCostFilter");

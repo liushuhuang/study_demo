@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author liu
+ */
 @Mapper
 public interface UserMapper {
     int deleteUser(int id);

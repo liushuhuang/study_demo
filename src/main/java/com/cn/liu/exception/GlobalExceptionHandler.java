@@ -1,13 +1,16 @@
 package com.cn.liu.exception;
 
-import com.cn.liu.Json.ResponseError;
-import com.cn.liu.Json.ResponseResult;
+import com.cn.liu.json.ResponseError;
+import com.cn.liu.json.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author liu
+ */
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {

@@ -2,7 +2,7 @@ package com.cn.liu.service.iml;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.cn.liu.Json.ResponseResult;
+import com.cn.liu.json.ResponseResult;
 import com.cn.liu.entity.TreeNode;
 import com.cn.liu.entity.User;
 import com.cn.liu.exception.BusinessException;
@@ -29,7 +29,7 @@ public class TestServiceImpl implements TestService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Resource
-    RedisTemplate redisTemplate;
+    RedisTemplate<String,Object> redisTemplate;
 
     @Override
     public void test1(Map<String,Object> map) {

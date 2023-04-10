@@ -1,10 +1,13 @@
-package com.cn.liu.Json;
+package com.cn.liu.json;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author liu
+ */
 @Data
 @Builder
 @NoArgsConstructor

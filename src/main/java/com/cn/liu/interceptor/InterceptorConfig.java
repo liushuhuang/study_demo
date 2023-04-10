@@ -1,4 +1,4 @@
-package com.cn.liu.Interceptor;
+package com.cn.liu.interceptor;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -8,6 +8,9 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author liu
+ */
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
 
@@ -18,7 +21,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 放行路径
-        List<String> patterns = new ArrayList();
+        List<String> patterns = new ArrayList<>();
         patterns.add("/webjars/**");
         patterns.add("/druid/**");
         patterns.add("/sys/login");

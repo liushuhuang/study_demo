@@ -5,9 +5,10 @@ import com.alibaba.excel.annotation.ExcelProperty;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
 
+/**
+ * @author liu
+ */
 @ExcelIgnoreUnannotated
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;

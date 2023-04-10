@@ -2,7 +2,7 @@ package com.cn.liu.controller;
 
 
 import com.alibaba.fastjson.JSON;
-import com.cn.liu.Json.ResponseResult;
+import com.cn.liu.json.ResponseResult;
 import com.cn.liu.entity.Login;
 import com.cn.liu.entity.User;
 import com.cn.liu.exception.BusinessException;
@@ -16,11 +16,11 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -41,8 +41,8 @@ public class LoginController {
     public final String pre1 = "dyms"+"_"+"imageCaptchaCode"+"_";
     public final String pre2 = "dyms"+"_"+"captchaCode"+"_";
 
-    @Autowired
-    private RedisTemplate redisTemplate;
+    @Resource
+    private RedisTemplate<String,Object> redisTemplate;
 
 
     public LoginController(UserMapper userMapper) {
@@ -111,14 +111,14 @@ public class LoginController {
     }
 
     @RequestMapping("/exception")
-    public ResponseResult ExceptionTest(){
+    public ResponseResult exceptionTest(){
         throw new RuntimeException("异常测试");
 
     }
 
     @RequestMapping("/list")
     @ResponseBody
-    public ResponseResult ListTest(){
+    public ResponseResult listTest(){
         List<User> userList = userMapper.queryForList();
         return ResponseResult.success("查询成功", userList);
     }
@@ -137,7 +137,7 @@ public class LoginController {
     @ResponseBody
     public ResponseResult resgity(@RequestBody User user){
         int res = userMapper.resgity(user);
-        if(!(res>0)){
+        if(res==0){
             throw new BusinessException("注册失败");
         }
         return ResponseResult.success("注册成功",user);
@@ -147,7 +147,7 @@ public class LoginController {
     @ResponseBody
     public ResponseResult delete(@PathVariable(name = "id") int id){
         int res = userMapper.deleteUser(id);
-        if(!(res>0)){
+        if(res==0){
             throw new BusinessException("删除失败");
         }
         return ResponseResult.success("删除成功");
@@ -157,7 +157,7 @@ public class LoginController {
     @ResponseBody
     public ResponseResult update(@RequestBody User user){
         int res = userMapper.update(user);
-        if(!(res>0)){
+        if(res==0){
             throw new BusinessException("更新失败");
         }
         return ResponseResult.success("更新成功",user);
@@ -196,6 +196,7 @@ public class LoginController {
         cell.setCellValue("ssss");
         FileOutputStream fileOutputStream = new FileOutputStream(path + "1.xlsx");
         workbook.write(fileOutputStream);
+        workbook.close();
 
     }
 
@@ -203,9 +204,10 @@ public class LoginController {
     @ResponseBody
     public ResponseResult t1(@RequestBody Map<String,String> pwdmap){
         User user= userMapper.selectUserById(Integer.parseInt(pwdmap.get("id")));
-        System.out.println(pwdmap.get("nowpwd"));
+        String nowpwd = pwdmap.get("nowpwd");
+        System.out.println(nowpwd);
         System.out.println(user.getPwd());
-        if(!user.getPwd().equals(pwdmap.get("nowpwd"))){
+        if(!user.getPwd().equals(nowpwd)){
             throw new BusinessException("当前密码不正确");
         }
         if(!pwdmap.get("pwd").equals(pwdmap.get("repwd"))){
@@ -231,12 +233,13 @@ public class LoginController {
 
     @PostMapping("/tt1")
     @ResponseBody
-    public String tt1(@RequestBody Map<String,Object> sent) throws IOException {
+    public String tt1(@RequestBody Map<String,Object> sent) {
         String phone = (String) sent.get("phone");
         String imageCaptchaCode1 = (String) sent.get("imageCaptchaCode");
         String key1 = pre1+phone;
         String imageCaptchaCode = (String) redisTemplate.boundValueOps(key1).get();
         String key2 = pre2+phone;
+        assert imageCaptchaCode != null;
         if(imageCaptchaCode.equalsIgnoreCase(imageCaptchaCode1)){
             redisTemplate.boundValueOps(key2).set("1234",1, TimeUnit.MINUTES);
             return "1234";
@@ -248,11 +251,12 @@ public class LoginController {
 
     @PostMapping("/tt2")
     @ResponseBody
-    public String tt2(@RequestBody Map<String,Object> login) throws IOException {
+    public String tt2(@RequestBody Map<String,Object> login) {
         String phone = (String) login.get("phone");
         String captchaCode1 = (String) login.get("captchaCode");
         String key = pre2+phone;
         String imageCaptchaCode = (String) redisTemplate.boundValueOps(key).get();
+        assert imageCaptchaCode != null;
         if(imageCaptchaCode.equals(captchaCode1)){
             return "sucess";
         }

@@ -3,6 +3,7 @@ package com.cn.liu.controller;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.builder.ExcelWriterBuilder;
+import com.alibaba.excel.write.builder.ExcelWriterSheetBuilder;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.style.WriteCellStyle;
 import com.alibaba.excel.write.metadata.style.WriteFont;
@@ -10,6 +11,7 @@ import com.alibaba.excel.write.style.HorizontalCellStyleStrategy;
 import com.cn.liu.entity.User;
 import com.cn.liu.mapper.UserMapper;
 import com.cn.liu.util.easyexcel.DemoDataListener;
+import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
@@ -57,14 +59,14 @@ public class EasyExcelTestController {
             try {
                 request.getInputStream().close();
             } catch (IOException e) {
-                return null;
+                System.out.println("输入流关闭异常");
             }
         }
     }
 
 
     @RequestMapping("/import")
-    public void Excelimport(){
+    public void excelImport(){
         String fileName = "D:\\project\\地区列表.xlsx";
         EasyExcel.read(fileName, User.class, new DemoDataListener()).sheet().doRead();
     }
@@ -106,7 +108,7 @@ public class EasyExcelTestController {
         // 内容的策略
         WriteCellStyle contentWriteCellStyle = new WriteCellStyle();
         // 这里需要指定 FillPatternType 为FillPatternType.SOLID_FOREGROUND 不然无法显示背景颜色.头默认了 FillPatternType所以可以不指定
-//        contentWriteCellStyle.setFillPatternType(FillPatternType.SQUARES);
+        contentWriteCellStyle.setFillPatternType(FillPatternType.SQUARES);
         // 背景白色
         contentWriteCellStyle.setFillForegroundColor(IndexedColors.WHITE.getIndex());
         WriteFont contentWriteFont = new WriteFont();
@@ -142,13 +144,12 @@ public class EasyExcelTestController {
 
 
         ////4、创建表格
-        //ExcelWriterSheetBuilder sheet = writeWork.sheet("用户信息");
-        //ExcelWriterSheetBuilder sheet2 = writeWork.sheet("用户信息2");
-        ////5、调用业务层获取数据
-        ////List<Category> categories = categoryService.findAll();
-        ////6、写入数据到表格中
-        //sheet.doWrite(userList);
-        //sheet2.doWrite(userList2);
+        ExcelWriterSheetBuilder sheet = writeWork.sheet("用户信息");
+        ExcelWriterSheetBuilder sheet2 = writeWork.sheet("用户信息2");
+        //5、调用业务层获取数据
+        //6、写入数据到表格中
+        sheet.doWrite(userList);
+        sheet2.doWrite(userList2);
     }
 
 

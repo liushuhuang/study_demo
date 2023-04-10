@@ -1,6 +1,6 @@
 package com.cn.liu.controller;
 
-import com.cn.liu.Json.ResponseResult;
+import com.cn.liu.json.ResponseResult;
 import com.cn.liu.annotation.RateLimiter;
 import com.cn.liu.service.TestService;
 import org.springframework.web.bind.annotation.*;

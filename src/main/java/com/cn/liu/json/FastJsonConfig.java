@@ -1,20 +1,20 @@
-package com.cn.liu.Json;
+package com.cn.liu.json;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import
-org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * @author liu
+ */
 @Configuration
-public class fastJsonConfig implements WebMvcConfigurer {
+public class FastJsonConfig implements WebMvcConfigurer {
     /**
     * 使用阿里 FastJson 作为JSON MessageConverter
     * @param converters  参数
@@ -23,7 +23,7 @@ public class fastJsonConfig implements WebMvcConfigurer {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
-        FastJsonConfig config = new FastJsonConfig();
+        com.alibaba.fastjson.support.config.FastJsonConfig config = new com.alibaba.fastjson.support.config.FastJsonConfig();
         config.setSerializerFeatures(
         // 保留map空的字段
         SerializerFeature.WriteMapNullValue,

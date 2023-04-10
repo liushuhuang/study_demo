@@ -14,7 +14,7 @@ import java.io.OutputStream;
 /**
  * @author huangrusheng
  * @version 1.0
- * @date 2021/5/20 9:54
+ *
  */
 public final class ImageCaptchaUtil {
 
@@ -24,7 +24,7 @@ public final class ImageCaptchaUtil {
      * @param params  验证码配置
      * @param outputStream  输出流
      * @return 图片文字内容
-     * @throws IOException
+     * @throws IOException 抛出io异常
      */
     public static String create(ImageCaptchaParams params, OutputStream outputStream) throws IOException{
         ConfigurableCaptchaService  captchaService = new ConfigurableCaptchaService();
@@ -45,9 +45,9 @@ public final class ImageCaptchaUtil {
     }
     /**
      * 以base64方式返回
-     * @param params
+     * @param params 验证码配置
      * @return 图片文字内容+base64格式的图片
-     * @throws IOException
+     * @throws IOException 抛出io异常
      */
     public static ImageCaptchaResult createBase64(ImageCaptchaParams params) throws IOException{
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream(1024 * 3);
@@ -56,15 +56,13 @@ public final class ImageCaptchaUtil {
     }
     /**
      * 以Web的img识别的base64返回
-     * @param params
+     * @param params  验证码配置
      * @return 图片文字内容+base64格式的img标签识别的图片
-     * @throws IOException
+     * @throws IOException 抛出io异常
      */
     public static ImageCaptchaResult createBase64ForWeb(ImageCaptchaParams params) throws IOException{
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream(1024 * 3);
         String words = create(params,outputStream);
-        StringBuilder webImageSrc = new StringBuilder();
-        webImageSrc.append("data:image/").append(params.getFormat().toLowerCase()).append(";base64,").append( Base64.encode(outputStream.toByteArray()));
-        return new ImageCaptchaResult(words,webImageSrc.toString());
+        return new ImageCaptchaResult(words, "data:image/" + params.getFormat().toLowerCase() + ";base64," + Base64.encode(outputStream.toByteArray()));
     }
 }

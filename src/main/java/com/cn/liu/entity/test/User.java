@@ -1,4 +1,4 @@
-package com.cn.liu.entity.Test;
+package com.cn.liu.entity.test;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 

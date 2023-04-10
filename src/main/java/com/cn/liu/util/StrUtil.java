@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * 字符串工具类
  *
+ * @author liu
  */
 public class StrUtil {
 

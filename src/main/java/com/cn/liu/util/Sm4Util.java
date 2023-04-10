@@ -2,11 +2,9 @@ package com.cn.liu.util;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.security.Security;
 
@@ -14,6 +12,7 @@ import java.security.Security;
  * 国密SM4分组密码算法工具类（对称加密）
  * <p>GB/T 32907-2016 信息安全技术 SM4分组密码算法</p>
  * <p>SM4-ECB-PKCS5Padding</p>
+ * @author liu
  */
 public class Sm4Util {
 
@@ -21,10 +20,10 @@ public class Sm4Util {
   private static final String ALGORITHM_ECB_PKCS5PADDING = "SM4/ECB/PKCS5Padding";
   private static final String SM4_KEY1 = "TXfuJtf5Jzdl1cwF6TeYKIytxd7JjstuFS25CSGEbAPLDI8u";
 
-  private static final String SM4_KEY = SM4_KEY1.substring(0,16);//
+  private static final String SM4_KEY = SM4_KEY1.substring(0,16);
 
   /**
-   * SM4算法目前只支持128位（即密钥16字节）
+   * SM4算法目前只支持128位（即密钥 16 字节）
    */
   private static final int DEFAULT_KEY_SIZE = 128;
 

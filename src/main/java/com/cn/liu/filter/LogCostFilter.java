@@ -4,9 +4,12 @@ import javax.servlet.*;
 import javax.servlet.FilterConfig;
 import java.io.IOException;
 
+/**
+ * @author liu
+ */
 public class LogCostFilter implements Filter {
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
 
     }
 

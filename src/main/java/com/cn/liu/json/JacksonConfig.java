@@ -1,4 +1,4 @@
-package com.cn.liu.Json;
+package com.cn.liu.json;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -13,7 +13,10 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import java.io.IOException;
 
 
-//使用jackson的json配置类，让返回的json不显示null
+/**
+ * @author liu
+ * 使用jackson的json配置类，让返回的json不显示null
+ */
 @Configuration
 public class JacksonConfig {
     @Bean
