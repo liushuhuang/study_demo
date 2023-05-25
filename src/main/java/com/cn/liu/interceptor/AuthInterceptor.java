@@ -32,18 +32,18 @@ public class AuthInterceptor implements HandlerInterceptor {
             setReturn(response, "用户未登录，请先登录");
             return false;
         }
-        //1. 根据token，查询用户信息
-        User userEntity = userMapper.selectUserById(1);
-        //2. 若用户不存在,
-        if (userEntity == null) {
-            setReturn(response, "用户不存在");
-            return false;
-        }
-        //3. token失效
-        if (userEntity.getExpireTime().isBefore(LocalDateTime.now())) {
-            setReturn(response,"用户登录凭证已失效，请重新登录");
-            return false;
-        }
+        // //1. 根据token，查询用户信息
+        // User userEntity = userMapper.selectUserById(1);
+        // //2. 若用户不存在,
+        // if (userEntity == null) {
+        //     setReturn(response, "用户不存在");
+        //     return false;
+        // }
+        // //3. token失效
+        // if (userEntity.getExpireTime().isBefore(LocalDateTime.now())) {
+        //     setReturn(response,"用户登录凭证已失效，请重新登录");
+        //     return false;
+        // }
 
         return true;
     }

@@ -55,6 +55,20 @@ public class User {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", cardNo='" + cardNo + '\'' +
+                ", age=" + age +
+                ", sex='" + sex + '\'' +
+                ", id='" + id + '\'' +
+                '}';
+    }
+
+    public User() {
+    }
+
     @ExcelProperty(value = "姓名",index = 0)
     public String name;
     @ExcelProperty(value = "身份证号",index = 1)

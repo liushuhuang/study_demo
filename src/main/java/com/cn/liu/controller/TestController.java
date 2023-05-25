@@ -1,5 +1,6 @@
 package com.cn.liu.controller;
 
+import com.cn.liu.entity.test.User;
 import com.cn.liu.json.ResponseResult;
 import com.cn.liu.annotation.RateLimiter;
 import com.cn.liu.service.TestService;
@@ -36,5 +37,10 @@ public class TestController {
     @PostMapping("/mq-queue")
     public void test4(@RequestBody Map<String,Object> map){
         testService.test4(map);
+    }
+
+    @GetMapping("/test5")
+    public void test5(User user){
+        System.out.println(user.toString());
     }
 }
