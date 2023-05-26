@@ -1,5 +1,7 @@
 package com.cn.liu.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.cn.liu.entity.test.User;
 import com.cn.liu.json.ResponseResult;
 import com.cn.liu.annotation.RateLimiter;
@@ -39,8 +41,10 @@ public class TestController {
         testService.test4(map);
     }
 
-    @GetMapping("/test5")
-    public void test5(User user){
+    @PostMapping("/test5")
+    public void test5(@RequestBody Map<String,Object> map){
+        JSONObject user1 = JSONObject.parseObject(JSON.toJSONString(map.get("role")));
+        User user = JSONObject.toJavaObject(user1, User.class);
         System.out.println(user.toString());
     }
 }

@@ -14,7 +14,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
 
-@WebFilter("/*")
+// @WebFilter("/*")
 public class AppendParametersFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         Map<String, String[]> additionalParams = new HashMap<>();
