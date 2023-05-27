@@ -26,12 +26,12 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-        String token = TokenUtil.getRequestToken(request);
-        //如果token为空
-        if (StringUtils.isBlank(token)) {
-            setReturn(response, "用户未登录，请先登录");
-            return false;
-        }
+        // String token = TokenUtil.getRequestToken(request);
+        // //如果token为空
+        // if (StringUtils.isBlank(token)) {
+        //     setReturn(response, "用户未登录，请先登录");
+        //     return false;
+        // }
         // //1. 根据token，查询用户信息
         // User userEntity = userMapper.selectUserById(1);
         // //2. 若用户不存在,
