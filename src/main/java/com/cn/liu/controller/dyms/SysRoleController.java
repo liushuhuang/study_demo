@@ -2,8 +2,10 @@ package com.cn.liu.controller.dyms;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +21,7 @@ public class SysRoleController {
 
     @PostMapping("/list")
     public void list(@RequestBody Map<String,Object> map) {
-        JSONObject user1 = JSONObject.parseObject(JSON.toJSONString(map.get("role")));
+        JSONObject user1 = JSONObject.parseObject(JSON.toJSONString(map));
         SysRole role = JSONObject.toJavaObject(user1, SysRole.class);
         System.out.println(role.toString());
     }
@@ -66,7 +68,7 @@ public class SysRoleController {
      * 批量取消授权用户
      */
     @PostMapping("/authUser/cancelAll")
-    public void cancelAuthUserAll(@RequestBody Map<String,Object> map) {
+        public void cancelAuthUserAll(@RequestBody Map<String,Object> map) {
         Long roleId = Long.valueOf(map.get("roleId").toString());
         System.out.println(roleId);
         List<Long> list = JSON.parseArray(JSON.toJSONString(map.get("userIds")), Long.class);

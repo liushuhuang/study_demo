@@ -26,6 +26,9 @@
     <select id="login" resultType="com.cn.liu.entity.User" resultMap="UserResultMap" parameterType="com.cn.liu.entity.Login">
         select id,name,card_no,age,sex from user where name = #{name} and pwd = #{pwd} and is_delete = 0
     </select>
+    <select id="selectUserToUser1" resultMap="UserResultMap">
+        select * from user where id = #{id}
+    </select>
 
     <update id="deleteUser" >
         update user set is_delete = 1 where id = #{id}

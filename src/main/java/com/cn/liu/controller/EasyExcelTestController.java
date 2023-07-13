@@ -79,16 +79,16 @@ public class EasyExcelTestController {
         //获取数据
         List<User> userList = userMapper.queryForList();
         List<User> userList2 = new ArrayList<>();
-        User user1 = new User(1,"liu1",22,"m","1");
-        User user2 = new User(2,"liu2",22,"m","2");
-        User user3 = new User(3,"liu3",22,"m","3");
-        User user4 = new User(4,"liu4",22,"m","4");
-        User user5 = new User(5,"liu5",22,"m","5");
-        userList2.add(user1);
-        userList2.add(user2);
-        userList2.add(user3);
-        userList2.add(user4);
-        userList2.add(user5);
+        //User user1 = new User(1,"liu1",22,"m","1");
+        //User user2 = new User(2,"liu2",22,"m","2");
+        //User user3 = new User(3,"liu3",22,"m","3");
+        //User user4 = new User(4,"liu4",22,"m","4");
+        //User user5 = new User(5,"liu5",22,"m","5");
+        //userList2.add(user1);
+        //userList2.add(user2);
+        //userList2.add(user3);
+        //userList2.add(user4);
+        //userList2.add(user5);
         // 头的策略
         WriteCellStyle headWriteCellStyle = new WriteCellStyle();
         // 背景设置为灰色

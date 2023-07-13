@@ -36,12 +36,8 @@ public class User implements Serializable {
 
     public String pwd;
 
-    public User(int id, String name, int age, String sex, String cardNo) {
+    public User(int id) {
         this.id = id;
-        this.name = name;
-        this.age = age;
-        this.sex = sex;
-        this.cardNo = cardNo;
     }
 
     public String getPwd() {

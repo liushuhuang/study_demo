@@ -38,6 +38,15 @@ public class User {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", age=" + age +
+                ", sex=" + sex +
+                '}';
+    }
+
     /**
      * <groupId>org.example</groupId>
      *     <artifactId>untitled</artifactId>

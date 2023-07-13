@@ -44,6 +44,6 @@ public class FastJson2JsonRedisSerializer<T> implements RedisSerializer<T> {
         }
         String str = new String(bytes, DEFAULT_CHARSET);
 
-        return JSON.parseObject(str, clazz, JSONReader.Feature.SupportAutoType.ordinal());
+        return JSON.parseObject(str, clazz, JSONReader.Feature.AllowUnQuotedFieldNames.ordinal());
     }
 }

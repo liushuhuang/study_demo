@@ -1,10 +1,13 @@
 package com.cn.liu.util;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.spec.SecretKeySpec;
+import java.math.BigDecimal;
 import java.security.SecureRandom;
 import java.security.Security;
 
@@ -14,6 +17,7 @@ import java.security.Security;
  * <p>SM4-ECB-PKCS5Padding</p>
  * @author liu
  */
+@Component
 public class Sm4Util {
 
   private static final String ALGORITHM_NAME = "SM4";
@@ -21,6 +25,12 @@ public class Sm4Util {
   private static final String SM4_KEY1 = "TXfuJtf5Jzdl1cwF6TeYKIytxd7JjstuFS25CSGEbAPLDI8u";
 
   private static final String SM4_KEY = SM4_KEY1.substring(0,16);
+
+  public static String a;
+  @Value(value = "${server.port}")
+  public void setA(String b) {
+    a = b;
+  }
 
   /**
    * SM4算法目前只支持128位（即密钥 16 字节）
@@ -30,6 +40,7 @@ public class Sm4Util {
   static {
     // 防止内存中出现多次BouncyCastleProvider的实例
     if (null == Security.getProvider(BouncyCastleProvider.PROVIDER_NAME)) {
+
       Security.addProvider(new BouncyCastleProvider());
     }
   }

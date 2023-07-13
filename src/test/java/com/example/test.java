@@ -1,7 +1,6 @@
 package com.example;
 
 import com.alibaba.druid.filter.config.ConfigTools;
-import com.alibaba.fastjson2.JSON;
 import com.cn.liu.entity.User;
 import com.cn.liu.mapper.UserMapper;
 import io.jsonwebtoken.Claims;
@@ -9,18 +8,13 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import javax.crypto.KeyGenerator;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -78,4 +72,28 @@ public class test {
             ConfigTools.main(new String[]{password});
     }
 
+
+    @Test
+    public void test3() throws Exception {
+        String input = "通用-参数[客户名称不能为纯数字]";
+        Pattern pattern = Pattern.compile("\\[(.*?)\\]");
+        Matcher matcher = pattern.matcher(input);
+        matcher.find();
+        System.out.println(matcher.group(1));
+    }
+
+    @Test
+    public void test4() throws Exception {
+        BigDecimal a = BigDecimal.valueOf(1);
+        BigDecimal b = BigDecimal.valueOf(1);
+        System.out.println(a.compareTo(b));
+    }
+    @Test
+    public void test5() throws Exception {
+        Long a = 0L;
+        System.out.println(a.compareTo(0L));
+    }
 }
+
+
+

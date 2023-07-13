@@ -2,7 +2,9 @@ package com.cn.liu.mapper;
 
 import com.cn.liu.entity.Login;
 import com.cn.liu.entity.User;
+import com.cn.liu.entity.User1;
 import org.apache.ibatis.annotations.Mapper;
+
 import java.util.List;
 import java.util.Map;
 
@@ -19,4 +21,7 @@ public interface UserMapper {
     int resgity(User user);
 
     int updatepwd(Map<String,String> newpwd);
+
+
+    User1 selectUserToUser1(int id);
 }

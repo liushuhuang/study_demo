@@ -1,25 +1,18 @@
 package com.cn.liu;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.cn.liu.util.security.sm2.SecretKeyUtils;
 import com.cn.liu.util.security.sm4.SM2Util;
 import com.cn.liu.util.security.sm4.SM4Util;
 import com.cn.liu.util.security.sm4.User;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.converter.HttpMessageNotWritableException;
-import org.springframework.http.server.ServerHttpAsyncRequestControl;
-import org.springframework.http.server.ServerHttpRequest;
-import org.springframework.http.server.ServerHttpResponse;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.InetSocketAddress;
-import java.net.URI;
 import java.nio.charset.Charset;
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -188,6 +181,31 @@ public class test {
         System.out.println(SM2Util.encryptData("04fbe2dd2395a62ed4c736420e00b1a57d3e84d0eeb80b24514f4d73ac48bf124983a582e23d7d8cc948f779dcae3397961214adeeba185d786f40039ee37dcfc4","3Sgm_cyt"));
     }
 
+
+    @Test
+    public void test5(){
+        Map<String,Object> a = new HashMap<>();
+        a.put("aa",1);
+        a.put("bb","c");
+        a.put("user",new com.cn.liu.util.security.sm4.User(1,23,'m'));
+        String string = JSON.toJSONString(a);
+        Map<String, Object> map = JSON.parseObject(string, new TypeReference<Map<String, Object>>() {});
+        //for (Map.Entry<String, Object> stringObjectEntry : map.entrySet()) {
+        //    System.out.println("key:"+stringObjectEntry.getKey()+",value:"+stringObjectEntry.getValue());
+        //}
+
+        JSONObject user = JSONObject.parseObject(JSON.toJSONString(map.get("user")));
+        User user1 = JSONObject.toJavaObject(user,User.class);
+        System.out.println(user1.toString());
+
+    }
+
+    @Test
+    public void test6(){
+        Integer a = null;
+        Long b = 1L;
+        System.out.println(b.equals(a));
+    }
 
 
 
