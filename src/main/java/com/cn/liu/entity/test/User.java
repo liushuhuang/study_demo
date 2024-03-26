@@ -77,6 +77,6 @@ public class User {
     public int age;
     @ExcelProperty(value = "性别",index = 3)
     public String sex;
-    @ExcelProperty(value = "用户id",index = 4)
+        @ExcelProperty(value = "用户id",index = 4)
     public String id;
 }

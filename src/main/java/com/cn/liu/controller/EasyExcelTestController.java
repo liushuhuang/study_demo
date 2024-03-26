@@ -11,6 +11,8 @@ import com.alibaba.excel.write.style.HorizontalCellStyleStrategy;
 import com.cn.liu.entity.User;
 import com.cn.liu.mapper.UserMapper;
 import com.cn.liu.util.easyexcel.DemoDataListener;
+import com.cn.liu.util.easyexcel.test.EasyExcelUtils;
+import com.cn.liu.util.easyexcel.test.NoModelWriteData;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
@@ -27,12 +29,15 @@ import java.io.InputStreamReader;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author liu
  */
 @RestController
+@RequestMapping("/excel")
 public class EasyExcelTestController {
     @Resource
     UserMapper userMapper;
@@ -71,7 +76,25 @@ public class EasyExcelTestController {
         EasyExcel.read(fileName, User.class, new DemoDataListener()).sheet().doRead();
     }
 
-
+    @RequestMapping("/test")
+    public void test(HttpServletResponse response) throws IOException {
+        String[] headMap = { "项目名称", "楼栋名称", "单元名称", "楼层名称"};
+        String[] dataStrMap={"hName","bName","uName","fName"};
+        NoModelWriteData d = new NoModelWriteData();
+        List<Map<String,Object>> listDatas = new ArrayList<>();
+        Map<String,Object> map = new HashMap<>();
+        map.put("hName","项目名称");
+        map.put("bName","楼栋名称");
+        map.put("uName","单元名称");
+        map.put("fName","楼层名称");
+        listDatas.add(map);
+        d.setFileName("认证统计");
+        d.setHeadMap(headMap);
+        d.setDataStrMap(dataStrMap);
+        d.setDataList(listDatas);
+        EasyExcelUtils easyExcelUtils = new EasyExcelUtils();
+        easyExcelUtils.noModleWrite(d, response);
+    }
 
 
     @RequestMapping(value = "/export")

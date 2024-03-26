@@ -13,8 +13,9 @@ import org.springframework.http.converter.HttpMessageNotWritableException;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class test {
 
@@ -202,9 +203,29 @@ public class test {
 
     @Test
     public void test6(){
-        Integer a = null;
-        Long b = 1L;
-        System.out.println(b.equals(a));
+        List<String> myList = Arrays.asList("item1", "item2", "item3", "item4", "item5");
+
+        for (int i = 0; i < 10; i++) {
+            Collections.shuffle(myList);
+
+            // 通过Stream获取洗牌后的列表的第一个元素
+            String randomElement = myList.stream().findFirst().orElse(null);
+
+            // 打印随机元素
+            System.out.println("随机元素：" + randomElement);
+        }
+
+    }
+    @Test
+    public void test7(){
+        String regex = "^(0*[1-9]\\d*(\\.\\d+)?|0*\\.\\d+)$";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher("0");
+        boolean isMatch = m.matches();
+        if (!isMatch) {
+            System.out.println("不符合");
+        }
+        System.out.println("符合");
     }
 
 

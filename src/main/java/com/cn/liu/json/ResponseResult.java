@@ -51,6 +51,13 @@ public class ResponseResult {
     }
 
     /**
+     * 请求成功
+     */
+    public static ResponseResult success(Object data){
+        return ResponseResult.builder().code("SUCCESS").data(data).build();
+    }
+
+    /**
      * 请求失败
      */
     public static ResponseResult fail(){
