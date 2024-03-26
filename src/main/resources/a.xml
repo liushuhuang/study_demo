@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Message>
+    <Head>
+        <Unitno>FP000001</Unitno>
+        <SubUnitno>FP000001</SubUnitno>
+        <TransDate>20230712</TransDate>
+        <TransTime>123000</TransTime>
+        <TransNo>2023071200000001</TransNo>
+        <TransCode>000001</TransCode>
+        <RetCode></RetCode>
+        <RetDesc></RetDesc>
+    </Head>
+    <body>
+        <busidate>20230712</busidate>
+        <busiserno>000000001001</busiserno>
+        <payeracc>6226000188001001</payeracc>
+        <payeraccname>付款人</payeraccname>
+        <payeeacc>102030090300000001</payeeacc>
+        <payeename>收款人</payeename>
+        <payeebrno>收款行号</payeebrno>
+        <payeebrname>收款行名</payeebrname>
+        <payflag>0</payflag>
+        <idtype>1</idtype>
+        <idno>360730199201208888</idno>
+        <payeetype>0</payeetype>
+        <amount>1000000</amount>
+        <remark></remark>
+        <remark1></remark1>
+        <remark2></remark2>
+        <exregion></exregion>
+    </body>
+</Message>
